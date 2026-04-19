@@ -11,4 +11,8 @@ public class HomeController {
     public String home() {
         return "Application is running";
     }
+    @GetMapping("/hii")
+    public String hello() {
+        return "<b>Hello<b>";
+    }
 }
