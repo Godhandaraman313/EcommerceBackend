@@ -13,6 +13,6 @@ public class HomeController {
     }
     @GetMapping("/hii")
     public String hello() {
-        return "<b>Hello<b>";
+        return "<b>Hello World<b>";
     }
 }
