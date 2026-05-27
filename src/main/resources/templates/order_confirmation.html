@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Order Confirmation - Kaimart</title>
+    <style>
+        body {font-family: 'Inter', 'Segoe UI', sans-serif; background: linear-gradient(135deg, #1a1a2e, #16213e); color:#333; padding:20px; margin:0;}
+        .container {max-width:600px; margin:auto; background:#fff; padding:40px; border-radius:16px; box-shadow:0 8px 32px rgba(0,0,0,0.15);}
+        .header {text-align:center; margin-bottom:30px;}
+        .header h1 {color:#e94560; font-size:28px; margin:0 0 5px 0;}
+        .header .brand {color:#0f3460; font-size:14px; letter-spacing:2px; text-transform:uppercase;}
+        .greeting {font-size:16px; margin-bottom:20px;}
+        .greeting strong {color:#e94560;}
+        .order-info {background:#f8f9fa; padding:20px; border-radius:10px; margin:20px 0;}
+        .order-info p {margin:5px 0; font-size:15px;}
+        table {width:100%; border-collapse:collapse; margin:20px 0;}
+        table th {background:#0f3460; color:#fff; padding:12px 15px; text-align:left; font-size:14px;}
+        table td {padding:12px 15px; border-bottom:1px solid #eee; font-size:14px;}
+        table tr:last-child td {border-bottom:none;}
+        .price {color:#e94560; font-weight:bold;}
+        .total-row {background:#f8f9fa; font-weight:bold; font-size:16px;}
+        .footer {margin-top:30px; text-align:center; color:#888; font-size:13px;}
+        .footer strong {color:#0f3460;}
+        p {line-height:1.6;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Thank you for your order!</h1>
+            <div class="brand">KAIMART</div>
+        </div>
+
+        <p class="greeting">Hi there, <strong>It's GoDofX here</strong> 👋</p>
+
+        <div class="order-info">
+            <p>We have received your order with ID <strong>#${orderId}</strong>.</p>
+            <p>Your purchase is being processed and you will receive updates shortly.</p>
+        </div>
+
+        <h3 style="color:#0f3460; margin-bottom:5px;">Order Summary</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${orderItems}
+            </tbody>
+        </table>
+
+        <p>Thank you for shopping with <strong>Kaimart</strong>! 🎉</p>
+
+        <div class="footer">
+            <p>Best regards,<br/><strong>The Kaimart Team</strong></p>
+        </div>
+    </div>
+</body>
+</html>

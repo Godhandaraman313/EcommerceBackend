@@ -2,34 +2,24 @@
 package com.project.ecommerce.controller;
 
 import com.project.ecommerce.dto.CheckoutResponse;
-import org.springframework.web.bind.annotation.*;
+import com.project.ecommerce.service.CheckoutService;
 
-import java.util.List;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/checkout")
 @CrossOrigin("http://localhost:5173")
 public class CheckoutController {
 
+    private final CheckoutService checkoutService;
+
+    public CheckoutController(CheckoutService checkoutService) {
+        this.checkoutService = checkoutService;
+    }
+
     @GetMapping
-    public CheckoutResponse getCheckout() {
-
-        CheckoutResponse res = new CheckoutResponse();
-
-        res.shippingAddress = "Demo Address";
-
-        CheckoutResponse.CheckoutInfo info = new CheckoutResponse.CheckoutInfo();
-        info.deliverDays = 3;
-        info.deliverDate = "Tomorrow";
-        info.codSupported = true;
-        info.productTotal = 1000;
-        info.shippingCostTotal = 50;
-        info.paymentTotal = 1050;
-
-        res.checkoutInfo = info;
-
-        res.cartItems = List.of(); // keep empty or mock
-
-        return res;
+    public CheckoutResponse getCheckout(Authentication authentication) {
+        return checkoutService.buildCheckout(authentication.getName());
     }
 }

@@ -22,10 +22,13 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .orElseThrow(() ->
                         new UsernameNotFoundException("User not found"));
 
+        String role = user.getRole() != null ? user.getRole().toUpperCase() : "CUSTOMER";
+        String authority = "ADMIN".equals(role) ? "ROLE_ADMIN" : "ROLE_CUSTOMER";
+
         return org.springframework.security.core.userdetails.User
                 .withUsername(user.getEmail())
                 .password(user.getPassword())
-                .authorities("USER")
+                .authorities(authority)
                 .build();
     }
 }

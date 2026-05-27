@@ -28,6 +28,17 @@ public class User {
     private String country;
     private String postalCode;
 
+    @Column(nullable = false)
+    private String role = "CUSTOMER";
+    // ✅ NEW FIELDS for verification and password reset
+    @Column(nullable = false)
+    private boolean enabled = true;
+
+    private boolean emailVerified = false;
+    private String verificationToken;
+    private String resetToken;
+    private java.time.LocalDateTime resetTokenExpiry;
+
     // ===== GETTERS & SETTERS =====
 
     public Long getId() { return id; }
@@ -61,4 +72,20 @@ public class User {
 
     public String getPostalCode() { return postalCode; }
     public void setPostalCode(String postalCode) { this.postalCode = postalCode; }
+
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
+
+    // NEW GETTERS & SETTERS for verification and reset
+    public boolean isEnabled() { return enabled; }
+    public void setEnabled(boolean enabled) { this.enabled = enabled; }
+
+    public boolean isEmailVerified() { return emailVerified; }
+    public void setEmailVerified(boolean emailVerified) { this.emailVerified = emailVerified; }
+    public String getVerificationToken() { return verificationToken; }
+    public void setVerificationToken(String verificationToken) { this.verificationToken = verificationToken; }
+    public String getResetToken() { return resetToken; }
+    public void setResetToken(String resetToken) { this.resetToken = resetToken; }
+    public java.time.LocalDateTime getResetTokenExpiry() { return resetTokenExpiry; }
+    public void setResetTokenExpiry(java.time.LocalDateTime resetTokenExpiry) { this.resetTokenExpiry = resetTokenExpiry; }
 }

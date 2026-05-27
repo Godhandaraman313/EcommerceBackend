@@ -15,13 +15,17 @@ public class CartItem {
 
     private int quantity;
 
+    private String userEmail;
+
     // getters
     public Long getId() { return id; }
     public Product getProduct() { return product; }
     public int getQuantity() { return quantity; }
+    public String getUserEmail() { return userEmail; }
 
     // setters
     public void setId(Long id) { this.id = id; }
     public void setProduct(Product product) { this.product = product; }
     public void setQuantity(int quantity) { this.quantity = quantity; }
+    public void setUserEmail(String userEmail) { this.userEmail = userEmail; }
 }

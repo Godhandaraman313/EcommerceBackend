@@ -1,45 +1,55 @@
-
 package com.project.ecommerce.controller;
 
+import com.project.ecommerce.dto.AddressRequest;
 import com.project.ecommerce.model.Address;
-import com.project.ecommerce.repository.AddressRepository;
+import com.project.ecommerce.service.AddressService;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/address_book")
 @CrossOrigin("http://localhost:5173")
 public class AddressController {
 
-    private final AddressRepository repo;
+    private final AddressService addressService;
 
-    public AddressController(AddressRepository repo) {
-        this.repo = repo;
+    public AddressController(AddressService addressService) {
+        this.addressService = addressService;
     }
 
     @GetMapping
     public Map<String, Object> getAddresses(Authentication auth) {
+        return addressService.listForUser(auth.getName());
+    }
 
-        String email = auth.getName();
+    @GetMapping("/{id}")
+    public Address getAddress(@PathVariable Long id, Authentication auth) {
+        return addressService.getById(id, auth.getName());
+    }
 
-        List<Address> addresses = repo.findByEmail(email);
+    @PostMapping
+    public Address create(@RequestBody AddressRequest request, Authentication auth) {
+        return addressService.create(auth.getName(), request);
+    }
 
-        Address primary = addresses.stream()
-                .findFirst()
-                .filter(Address::isDefaultForShipping)
-                .orElse(null);
+    @PutMapping("/{id}")
+    public Address update(
+            @PathVariable Long id,
+            @RequestBody AddressRequest request,
+            Authentication auth
+    ) {
+        return addressService.update(id, auth.getName(), request);
+    }
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("addresses", addresses);
-        response.put("primary", primary);
-
-        return response;
+    @PatchMapping("/{id}/default")
+    public Address setDefault(@PathVariable Long id, Authentication auth) {
+        return addressService.setDefault(id, auth.getName());
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        repo.deleteById(id);
+    public void delete(@PathVariable Long id, Authentication auth) {
+        addressService.delete(id, auth.getName());
     }
 }

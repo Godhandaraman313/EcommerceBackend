@@ -1,13 +1,13 @@
 
 package com.project.ecommerce.controller;
 
+import com.project.ecommerce.model.Country;
 import com.project.ecommerce.repository.CountryRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/countries")
 @CrossOrigin("http://localhost:5173")
 public class CountryController {
 
@@ -17,8 +17,13 @@ public class CountryController {
         this.repo = repo;
     }
 
-    @GetMapping
-    public List<?> getAll() {
+    @GetMapping("/countries/list")
+    public List<Country> listCountries() {
+        return repo.findAll();
+    }
+
+    @GetMapping("/api/countries")
+    public List<Country> getAll() {
         return repo.findAll();
     }
 }
