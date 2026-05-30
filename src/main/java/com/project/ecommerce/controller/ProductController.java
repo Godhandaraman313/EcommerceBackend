@@ -6,10 +6,15 @@ import com.project.ecommerce.service.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/products")
@@ -70,6 +75,44 @@ public class ProductController {
     public String delete(@PathVariable Long id) {
         service.deleteProduct(id);
         return "Product deleted successfully";
+    }
+
+    // CSV Export (admin only) - all matching product data except images
+    @GetMapping(value = "/export", produces = "text/csv")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<byte[]> exportProductsCsv(
+            @RequestParam(defaultValue = "") String category,
+            @RequestParam(required = false) Long brandId,
+            @RequestParam(defaultValue = "") String search,
+            @RequestParam(defaultValue = "") String hashtag
+    ) {
+        String csv = service.exportProductsCsv(category, brandId, search, hashtag);
+        byte[] body = csv.getBytes(StandardCharsets.UTF_8);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=products-export.csv")
+                .contentType(MediaType.parseMediaType("text/csv"))
+                .body(body);
+    }
+
+    // CSV Template (admin only) - plain column names
+    @GetMapping(value = "/import-template", produces = "text/csv")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<byte[]> downloadImportTemplate() {
+        String csv = service.getImportTemplateCsv();
+        byte[] body = csv.getBytes(StandardCharsets.UTF_8);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=products-template.csv")
+                .contentType(MediaType.parseMediaType("text/csv"))
+                .body(body);
+    }
+
+    // CSV Import (admin only)
+    @PostMapping(value = "/import", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PreAuthorize("hasRole('ADMIN')")
+    public Map<String, Object> importProductsCsv(@RequestParam("file") MultipartFile file) {
+        return service.importProductsCsv(file);
     }
 
     // Per-product image upload (categories keep the default sample image).
