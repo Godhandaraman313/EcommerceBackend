@@ -17,6 +17,7 @@ public class Address {
     private String addressLine1;
     private String addressLine2;
     private String state;
+    private String district;
     private String city;
     private String country;
     private String postalCode;
@@ -83,6 +84,14 @@ public class Address {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public String getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(String district) {
+		this.district = district;
 	}
 
 	public String getCity() {

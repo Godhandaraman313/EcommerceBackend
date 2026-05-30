@@ -88,6 +88,8 @@ public class UserService {
         user.setPhoneNumber(updated.getPhoneNumber());
         user.setAddressLine1(updated.getAddressLine1());
         user.setCity(updated.getCity());
+        user.setState(updated.getState());
+        user.setDistrict(updated.getDistrict());
         user.setCountry(updated.getCountry());
         user.setPostalCode(updated.getPostalCode());
 

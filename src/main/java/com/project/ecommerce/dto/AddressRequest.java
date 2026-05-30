@@ -8,6 +8,7 @@ public class AddressRequest {
     private String addressLine1;
     private String addressLine2;
     private String state;
+    private String district;
     private String city;
     private String country;
     private String postalCode;
@@ -19,6 +20,7 @@ public class AddressRequest {
     public String getAddressLine1() { return addressLine1; }
     public String getAddressLine2() { return addressLine2; }
     public String getState() { return state; }
+    public String getDistrict() { return district; }
     public String getCity() { return city; }
     public String getCountry() { return country; }
     public String getPostalCode() { return postalCode; }
@@ -30,6 +32,7 @@ public class AddressRequest {
     public void setAddressLine1(String addressLine1) { this.addressLine1 = addressLine1; }
     public void setAddressLine2(String addressLine2) { this.addressLine2 = addressLine2; }
     public void setState(String state) { this.state = state; }
+    public void setDistrict(String district) { this.district = district; }
     public void setCity(String city) { this.city = city; }
     public void setCountry(String country) { this.country = country; }
     public void setPostalCode(String postalCode) { this.postalCode = postalCode; }

@@ -121,6 +121,7 @@ public class AddressService {
         address.setAddressLine1(request.getAddressLine1().trim());
         address.setAddressLine2(request.getAddressLine2());
         address.setState(request.getState());
+        address.setDistrict(request.getDistrict());
         address.setCity(request.getCity().trim());
         address.setCountry(request.getCountry());
         address.setPostalCode(request.getPostalCode().trim());
