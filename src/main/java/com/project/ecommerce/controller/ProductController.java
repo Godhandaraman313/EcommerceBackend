@@ -72,6 +72,19 @@ public class ProductController {
     }
 
     /** Per-product image upload (categories keep the default sample image). */
+        @PostMapping(
+            value = "/{id}/image",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE
+        )
+        @PreAuthorize("hasRole('ADMIN')")
+        public Product uploadThumbnail(
+            @PathVariable Long id,
+            @RequestParam("file") MultipartFile file
+        ) throws Exception {
+        return imageService.uploadImage(id, file);
+        }
+
+        /** Per-product extra images upload (gallery). */
     @PostMapping(
             value = "/{id}/extra-images",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
