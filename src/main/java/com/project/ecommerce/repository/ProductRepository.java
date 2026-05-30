@@ -18,6 +18,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
         SELECT p FROM Product p
         WHERE (:category = '' OR LOWER(p.category.name) LIKE LOWER(CONCAT('%', :category, '%')))
           AND (:brandId IS NULL OR p.brand.id = :brandId)
+          AND (:hashtag = '' OR LOWER(COALESCE(p.hashtags, '')) LIKE LOWER(CONCAT('%', :hashtag, '%')))
           AND (
             :search = ''
             OR LOWER(p.name) LIKE LOWER(CONCAT('%', :search, '%'))
@@ -28,6 +29,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             @Param("category") String category,
             @Param("brandId") Long brandId,
             @Param("search") String search,
+            @Param("hashtag") String hashtag,
             Pageable pageable
     );
 

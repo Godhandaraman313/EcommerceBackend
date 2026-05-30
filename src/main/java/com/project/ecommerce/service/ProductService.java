@@ -34,12 +34,14 @@ public class ProductService {
             String category,
             Long brandId,
             String search,
+            String hashtag,
             Pageable pageable
     ) {
         if (category == null) category = "";
         if (search == null) search = "";
+        if (hashtag == null) hashtag = "";
 
-        Page<Product> page = repo.searchProducts(category.trim(), brandId, search.trim(), pageable);
+        Page<Product> page = repo.searchProducts(category.trim(), brandId, search.trim(), hashtag.trim(), pageable);
         page.forEach(imageService::applyDefaultImageIfMissing);
         return page;
     }
@@ -126,6 +128,7 @@ public class ProductService {
             existing.setDescription(product.getDescription());
         }
         existing.setInStock(product.isInStock());
+        existing.setHashtags(product.getHashtags());
 
         if (product.getImageUrl() != null && !product.getImageUrl().isBlank()) {
             existing.setImageUrl(product.getImageUrl());

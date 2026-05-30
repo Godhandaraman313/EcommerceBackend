@@ -28,6 +28,7 @@ public class ProductController {
             @RequestParam(defaultValue = "") String category,
             @RequestParam(required = false) Long brandId,
             @RequestParam(defaultValue = "") String search,
+            @RequestParam(defaultValue = "") String hashtag,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size,
             @RequestParam(defaultValue = "id,asc") String sort
@@ -40,7 +41,7 @@ public class ProductController {
                 Sort.by(Sort.Direction.fromString(sortParams[1]), sortParams[0])
         );
 
-        return service.getFilteredProducts(category, brandId, search, pageable);
+        return service.getFilteredProducts(category, brandId, search, hashtag, pageable);
     }
 
     // GET BY ID

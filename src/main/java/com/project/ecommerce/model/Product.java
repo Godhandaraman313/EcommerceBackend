@@ -55,6 +55,10 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private java.util.List<ProductDetail> details = new java.util.ArrayList<>();
 
+    /** Comma-separated hashtags e.g. "gaming,laptop,tech" */
+    @Column(name = "hashtags", columnDefinition = "TEXT")
+    private String hashtags;
+
     public Long getBrandId() {
         return brand != null ? brand.getId() : brandId;
     }
@@ -77,6 +81,7 @@ public class Product {
     
     public java.util.List<ProductImage> getImages() { return images; }
     public java.util.List<ProductDetail> getDetails() { return details; }
+    public String getHashtags() { return hashtags; }
 
     public void setId(Long id) { this.id = id; }
     public void setName(String name) { this.name = name; }
@@ -97,6 +102,7 @@ public class Product {
     public void setAverageRating(Double averageRating) { this.averageRating = averageRating; }
     public void setReviewCount(Integer reviewCount) { this.reviewCount = reviewCount; }
     public void setBrand(Brand brand) { this.brand = brand; }
+    public void setHashtags(String hashtags) { this.hashtags = hashtags; }
     
     public void addExtraImage(String imageName) {
         this.images.add(new ProductImage(imageName, this));
