@@ -71,7 +71,7 @@ public class ProductController {
         return "Product deleted successfully";
     }
 
-    /** Per-product image upload (categories keep the default sample image). */
+    // Per-product image upload (categories keep the default sample image).
         @PostMapping(
             value = "/{id}/image",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE
